@@ -1,12 +1,11 @@
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <title>vote</title>
     <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
 </head>
 <body>
 
@@ -20,7 +19,7 @@
         <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
         {% endfor %}
     </fieldset>
-    <input type="submit" value="Vote">
+    <input class="button" type="submit" value="Vote">
 </form>
 
 </body>

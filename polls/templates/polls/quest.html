@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Pergunta do dia</title>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
+</head>
+<body>
+
+{% if latest_question_list %}
+
+<ul>
+    {% for question in latest_question_list %}
+    <li><a href="{% url 'polls:detail' question.pk %}">{{ question.question_text }}</br></br></br></a></li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+
+</body>
+</html>

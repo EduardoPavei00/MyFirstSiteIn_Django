@@ -1,18 +1,27 @@
-{% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <title>Pergunta do dia</title>
     <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
 </head>
 <body>
-{% if latest_question_list %}
+
+{% block content %}
+<h2>New post</h2>
+<form method="POST" class="post-form">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+{% endblock %}
+
+{% if latest_subject_list %}
+
 <ul>
-    {% for question in latest_question_list %}
-    <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% for subject in latest_subject_list %}
+    <li><a href="{% url 'polls:quest' subject.pk %}">{{ subject.subject_text }}: </br></br></br></a></li>
     {% endfor %}
 </ul>
 

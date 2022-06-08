@@ -4,13 +4,27 @@ from django.shortcuts import render, get_object_or_404
 from django.template import loader
 from django.urls import reverse
 
-from polls.models import Question, Choice
+from polls.forms import PostForm
+
+
+from polls.models import Question, Choice, Subject
 
 
 def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    latest_subject_list = Subject.objects.order_by('-pub_date')[:5]
+    context = {'latest_subject_list': latest_subject_list}
+    return render(request, 'polls/index.html', context, )
+
+
+def post_new(request):
+    form = PostForm()
+    return render(request, 'polls/index.html', {'form': form})
+
+
+def quest(request, subject_id):
+    latest_question_list = Question.objects.filter(subject_id=subject_id)
     context = {'latest_question_list': latest_question_list}
-    return render(request, 'polls/index.html', context)
+    return render(request, 'polls/quest.html', context)
 
 
 def detail(request, question_id):

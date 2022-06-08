@@ -1,22 +1,21 @@
-{% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Resultado</title>
     <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
 </head>
 <body>
     <h1>{{ question.question_text }}</h1>
-
     <ul>
         {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }}    -->     {{choice.votes}}  vote{{choice.votes|pluralize}}</li>
+        <li>{{ choice.choice_text }}  ->  {{choice.votes}} vote{{choice.votes|pluralize}}</br></br></li>
         {% endfor %}
     </ul>
-    <a href ="{%url 'polls:vote' question.id%}">Vote again??</a></br></br>
+    <a href ="{%url 'polls:vote' question.id%}">Vote again??</a>
     <a href ="{%url 'polls:index'%}">Back to top</a>
 
 

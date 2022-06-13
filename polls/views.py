@@ -1,11 +1,10 @@
-
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
-from polls.forms import PostForm
-
+from polls.form import PostForm
 
 from polls.models import Question, Choice, Subject
 
@@ -16,9 +15,19 @@ def index(request):
     return render(request, 'polls/index.html', context, )
 
 
-def post_new(request):
+def form(request):
     form = PostForm()
-    return render(request, 'polls/index.html', {'form': form})
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post_subject = form.cleaned_data['subject']
+
+            new_post = Subject(subject_text=post_subject)
+            new_post.save()
+
+            return redirect('polls:index')
+    elif request.method == 'GET':
+        return render(request, 'polls/form.html', {'form': form})
 
 
 def quest(request, subject_id):

@@ -1,11 +1,12 @@
 import datetime
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 
 
 class Subject(models.Model):
     subject_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', auto_now_add=True)
 
     def __str__(self):
         return self.subject_text

@@ -1,11 +1,12 @@
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>Pergunta do dia</title>
     <meta charset="utf-8">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
 </head>
 <body>
 
@@ -15,7 +16,11 @@
 
 <ul>
     {% for subject in latest_subject_list %}
-    <li><a href="{% url 'polls:quest' subject.pk %}">{{ subject.subject_text }}: </br></br></br></a></li>
+    <li><a href="{% url 'polls:quest' subject.pk %}">{{ subject.subject_text }}: </a></li>
+    <a class="icon" href="{% url 'polls:deleteSubject' subject.id %}"><i class="fa-solid fa-trash"></i></a> <h1></h1>
+    <a  href="{% url 'polls:editSubjectPopup' subject.id %}"><i class="fa-solid fa-pencil"></i></a>
+    </br></br></br>
+
     {% endfor %}
 </ul>
 

@@ -2,12 +2,19 @@ li a {
     color: black;
     letter-spacing: 1px;
     font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
 }
 ul{
+    float: right;
+
+    margin-left: 4%;
+
     text-decoration: none;
     padding: 15px;
     width: 85%;
     list-style-type: none;
+
 }
 
 body {
@@ -29,5 +36,11 @@ fieldset{
      font-size: 16px;
     letter-spacing: 2px;
     font-weight: bold;
-
  }
+a{
+    color: black;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}

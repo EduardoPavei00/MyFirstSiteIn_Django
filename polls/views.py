@@ -30,6 +30,16 @@ def form(request):
         return render(request, 'polls/form.html', {'form': form})
 
 
+def deleteSubject(request, subject_id):
+    item = Subject.objects.get(id=subject_id)
+    item.delete()
+    return redirect('index')
+
+
+def editSubjectPopup(request, subject_id):
+    item = Subject.ob
+
+
 def quest(request, subject_id):
     latest_question_list = Question.objects.filter(subject_id=subject_id)
     context = {'latest_question_list': latest_question_list}

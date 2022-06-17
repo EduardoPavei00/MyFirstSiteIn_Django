@@ -4,40 +4,55 @@ from django.template import loader
 from django.urls import reverse, reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
-from polls.form import PostForm
+from polls.form import SubjectForm
 
 from polls.models import Question, Choice, Subject
 
 
-def index(request):
+def list_subjects(request):
+    form = SubjectForm()
     latest_subject_list = Subject.objects.order_by('-pub_date')[:5]
-    context = {'latest_subject_list': latest_subject_list}
-    return render(request, 'polls/index.html', context, )
+    context = {'latest_subject_list': latest_subject_list,
+               'form': form}
+    return render(request, 'polls/list_subjects.html', context, )
 
 
-def form(request):
-    form = PostForm()
+def add_subject_form(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = SubjectForm(request.POST)
         if form.is_valid():
             post_subject = form.cleaned_data['subject']
-
             new_post = Subject(subject_text=post_subject)
             new_post.save()
 
-            return redirect('polls:index')
+            return redirect('polls:list_subjects')
     elif request.method == 'GET':
-        return render(request, 'polls/form.html', {'form': form})
+        form = SubjectForm()
+        return render(request, 'polls/add_subject_form.html', {'form': form})
 
 
 def deleteSubject(request, subject_id):
     item = Subject.objects.get(id=subject_id)
     item.delete()
-    return redirect('index')
+    return redirect('list_subjects')
 
 
-def editSubjectPopup(request, subject_id):
-    item = Subject.ob
+def changeSubjectName(request, subject_id):
+    print("ID: {}".format(subject_id))
+    data = request.POST
+    print("====== request: {}".format(data))
+
+    form = SubjectForm(data)
+    if form.is_valid():
+        new_subject_name = form.cleaned_data['subject']
+        print("========== form subject: {}".format(new_subject_name))
+        subject = Subject.objects.get(id=subject_id)
+        subject.subject_text = new_subject_name
+        subject.save()
+        return redirect('list_subjects')
+    else:
+        print("ERROR !!!")
+        return redirect('add_subject_form')
 
 
 def quest(request, subject_id):

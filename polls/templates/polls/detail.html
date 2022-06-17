@@ -1,14 +1,7 @@
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <title>vote</title>
-    <meta charset="utf-8">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block content %}
 <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     <fieldset>
@@ -22,5 +15,4 @@
     <input class="button" type="submit" value="Vote">
 </form>
 
-</body>
-</html>
+{% endblock %}

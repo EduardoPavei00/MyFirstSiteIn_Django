@@ -1,15 +1,12 @@
 li a {
-    color: black;
+    color: whitesmoke;
     letter-spacing: 1px;
     font-weight: bold;
     text-decoration: none;
     display: inline-block;
 }
+
 ul{
-    float: right;
-
-    margin-left: 4%;
-
     text-decoration: none;
     padding: 15px;
     width: 85%;
@@ -18,7 +15,7 @@ ul{
 }
 
 body {
-    background: darkseagreen;
+    background: darkslategray;
 }
 
 fieldset{
@@ -38,9 +35,20 @@ fieldset{
     font-weight: bold;
  }
 a{
-    color: black;
-    letter-spacing: 1px;
-    font-weight: bold;
+    margin-left: 2%;
+    color: whitesmoke;
     text-decoration: none;
-    display: inline-block;
+
 }
+.div_icon{
+    width: 100%;
+    height: 10px;
+   display: inline;
+}
+.icon{
+
+
+
+}
+
+

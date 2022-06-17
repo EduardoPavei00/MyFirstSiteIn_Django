@@ -1,14 +1,8 @@
 
 
-<!DOCTYPE html>
-<html lang="pt-br" xmlns="http://www.w3.org/1999/html">
-<head>
-    <title>Resultado</title>
-    <meta charset="utf-8">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
     <h1>{{ question.question_text }}</h1>
     <ul>
         {% for choice in question.choice_set.all %}
@@ -16,8 +10,6 @@
         {% endfor %}
     </ul>
     <a href ="{%url 'polls:vote' question.id%}">Vote again??</a>
-    <a href ="{%url 'polls:index'%}">Back to top</a>
+    <a href ="{%url 'polls:list_subjects'%}">Back to top</a>
 
-
-</body>
-</html>
+    {% endblock %}

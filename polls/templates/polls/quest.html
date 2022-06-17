@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <title>Pergunta do dia</title>
-    <meta charset="utf-8">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/stylee.css' %}">
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block content %}
 
 {% if latest_question_list %}
 
@@ -20,5 +14,4 @@
 <p>No polls are available.</p>
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

@@ -21,5 +21,5 @@ from django.urls import include, path
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.list_subjects, name='list_subjects'),
 ]

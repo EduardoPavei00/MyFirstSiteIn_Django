@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
 <a href="{% url 'polls:add_subject' %}">Subject registration : </a>
 
 {% if latest_subject_list %}
 <ul>
     {% for subject in latest_subject_list %}
-    <li><a href="{% url 'polls:quest' subject.pk %}">{{ subject.subject_text }}: </a></li>
+    <li><a href="{% url 'polls:question_list_by_subject' subject.pk %}">{{ subject.subject_text }}: </a></li>
     <div class="div_icon">
 
 

@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('<int:subject_id>/delete', views.deleteSubject, name='deleteSubject'),
 
-    path('<int:subject_id>/edit', views.changeSubjectName, name='changeSubjectName'),
+    path('<int:subject_id>/edit', views.change_subject_name, name='change_subject_name'),
 
     path('<int:subject_id>/add_question', views.add_question_form, name='add_question_form'),
 

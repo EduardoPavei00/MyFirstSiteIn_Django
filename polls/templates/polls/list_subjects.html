@@ -6,72 +6,46 @@
 <a href="{% url 'polls:add_subject' %}">Subject registration : </a>
 
 {% if latest_subject_list %}
-<ul>
-    {% for subject in latest_subject_list %}
-    <li><a href="{% url 'polls:question_list_by_subject' subject.pk %}">{{ subject.subject_text }}: </a></li>
-    <div class="div_icon">
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+        {% for subject in latest_subject_list %}
+        <li class="list-group-item">
+            <a href="{% url 'polls:question_list_by_subject' subject.id %}">{{ subject.subject_text }}: </a>
+            </br>
+            <a type="button" class="btn btn-primary" href="{% url 'polls:change_subject_name' subject.id %}"><i class="fa-solid fa-pencil"></i></a>
+            <a type="button" class="btn btn-primary" href="{% url 'polls:deleteSubject' subject.id %}"><i class="fa-solid fa-trash"></i></a>
+        </li>
 
+<!--            <div class="div_icon">-->
+<!--                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
+<!--                    <div class="modal-dialog">-->
+<!--                        <div class="modal-content">-->
+<!--                            <p> id {{subject.id}} </p>-->
+<!--                            <form action="{% url 'polls:change_subject_name' subject.id %}" method="post">-->
+<!--                                {% csrf_token %}-->
+<!--                                <div class="modal-header">-->
+<!--                                    <h5 class="modal-title" id="exampleModalLabel">Edit Name Subject</h5>-->
+<!--                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                </div>-->
+<!--                                <div class="modal-body">-->
 
-        <a type="button" class="btn btn-primary" href="{% url 'polls:deleteSubject' subject.id %}"><i class="fa-solid fa-trash"></i></a>
+<!--                                    {{ form.as_p }}-->
+<!--                                </div>-->
+<!--                                <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+<!--                                    <button  type="submit" class="btn btn-primary">Save changes</button>-->
+<!--                                </div>-->
+<!--                            </form>-->
 
-        <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="fa-solid fa-pencil"></i>
-        </a>
-
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="{% url 'polls:changeSubjectName' subject.id %}" method="post">
-                        {% csrf_token %}
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Name Subject</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            {{ form.as_p }}
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button  type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-
-
-
-
-<!--        <form action="{% url 'polls:changeSubjectName' subject.id %}" method="post">-->
-<!--            {% csrf_token %}-->
-<!--            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--                <div class="modal-dialog">-->
-<!--                    <div class="modal-content">-->
-<!--                        <div class="modal-header">-->
-<!--                            <h5 class="modal-title" id="exampleModalLabel">Edit Name Subject</h5>-->
-<!--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                        </div>-->
-<!--                        <div class="modal-body">-->
-<!--                            <input type="text" name="subject_text"/>-->
-<!--                        </div>-->
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-<!--                            <a href="{% url 'polls:changeSubjectName' subject.id %}" type="button" class="btn btn-primary">Save changes</a>-->
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
 <!--            </div>-->
-<!--        </form>-->
 
 
+{% endfor %}
+        </ul>
     </div>
-
-
-    {% endfor %}
-</ul>
 
 {% else %}
 <p>No polls are available.</p>

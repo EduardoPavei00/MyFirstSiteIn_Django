@@ -14,6 +14,7 @@ def list_subjects(request):
     latest_subject_list = Subject.objects.order_by('-pub_date')[:5]
     context = {'latest_subject_list': latest_subject_list,
                'form': form}
+    print("---->", context)
     return render(request, 'polls/list_subjects.html', context, )
 
 
@@ -36,29 +37,40 @@ def deleteSubject(request, subject_id):
     return redirect('list_subjects')
 
 
-def changeSubjectName(request, subject_id):
-    print("ID: {}".format(subject_id))
-    data = request.POST
-    print("====== request: {}".format(data))
+def change_subject_name(request, subject_id):
 
-    form = SubjectForm(data)
-    if form.is_valid():
-        new_subject_name = form.cleaned_data['subject']
-        print("========== form subject: {}".format(new_subject_name))
-        subject = Subject.objects.get(id=subject_id)
-        subject.subject_text = new_subject_name
-        subject.save()
-        return redirect('list_subjects')
-    else:
-        print("ERROR !!!")
-        return redirect('add_subject_form')
+    if request.method == 'POST':
+        data = request.POST
+        print("====== request: {}".format(data))
+        form = SubjectForm(data)
+        if form.is_valid():
+            new_subject_name = form.cleaned_data['subject']
+            print("--->>>>", subject_id)
+            print("========== form subject: {}".format(new_subject_name))
+            subject = Subject.objects.get(id=subject_id)
+            subject.subject_text = new_subject_name
+            subject.save()
+            return redirect('list_subjects')
+        else:
+            print("ERROR !!!")
+            return redirect('add_subject_form')
+    if request.method == 'GET':
+        form = SubjectForm()
+        context = {
+            'subject_id': subject_id,
+            'form': form,
+        }
+        print("--->>>>", context)
+        # return HttpResponse(template.render(context, request))
+
+        return render(request, 'polls/change_subject_name.html', context)
 
 
 def question_list_by_subject(request, subject_id):
+    print("===> subject id: {}".format(subject_id))
     latest_question_list = Question.objects.filter(subject_id=subject_id)
     context = {'latest_question_list': latest_question_list,
-                'subject_id': subject_id}
-    print("---->", context)
+               'subject_id': subject_id}
     return render(request, 'polls/question_list_by_subject.html', context)
 
 
@@ -71,9 +83,9 @@ def vote_choice_view(request, question_id):
 
 
 def add_question_form(request, subject_id):
-
     if request.method == 'POST':
         form = QuestionForm(request.POST)
+        print("-------------->", subject_id)
         if form.is_valid():
             # post_choice = form.cleaned_data['choice']
             post_question = form.cleaned_data['question']
@@ -83,7 +95,7 @@ def add_question_form(request, subject_id):
             context = {'subject_id': subject_id}
             # return redirect('question_list_by_subject')
 
-            return render(request=request, template_name='polls/question_list_by_subject.html', context=context)
+            return HttpResponseRedirect(reverse('polls:question_list_by_subject', args=(subject_id,)))
     elif request.method == 'GET':
         context = {
             'form': QuestionForm(),

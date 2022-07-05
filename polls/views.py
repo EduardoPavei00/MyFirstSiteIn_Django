@@ -87,12 +87,19 @@ def add_question_form(request, subject_id):
         form = QuestionForm(request.POST)
         print("-------------->", subject_id)
         if form.is_valid():
-            # post_choice = form.cleaned_data['choice']
-            post_question = form.cleaned_data['question']
+            post_first_choice = form.cleaned_data['first_choice']
+            post_second_choice = form.cleaned_data['second_choice']
+            post_question_text = form.cleaned_data['question']
             subject = Subject.objects.get(id=subject_id)
-            new_post = Question(question_text=post_question, subject=subject)
-            new_post.save()
-            context = {'subject_id': subject_id}
+            print("------",subject)
+            new_post_question = Question(question_text=post_question_text, subject=subject)
+            new_post_question.save()
+            print("-------------->", form.cleaned_data['question'])
+            new_post_first_choice = Choice(choice_text=post_first_choice, question=new_post_question)
+            new_post_second_choice = Choice(choice_text=post_second_choice, question=new_post_question)
+            new_post_first_choice.save()
+            new_post_second_choice.save()
+            # context = {'subject_id': subject_id}
             # return redirect('question_list_by_subject')
 
             return HttpResponseRedirect(reverse('polls:question_list_by_subject', args=(subject_id,)))

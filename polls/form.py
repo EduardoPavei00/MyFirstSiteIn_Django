@@ -11,5 +11,6 @@ class SubjectForm(forms.Form):
 
 class QuestionForm(forms.Form):
     question = forms.CharField(label='question')
-    # choice = forms.CharField(label='choices')
+    first_choice = forms.CharField(label='choices')
+    second_choice = forms.CharField(label='choices')
 

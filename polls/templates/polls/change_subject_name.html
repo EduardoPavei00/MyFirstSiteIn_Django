@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h2>Change Question</h2>
+<form action="{% url 'polls:change_subject_name' subject_id%}" method="post">
+    {% csrf_token %}
+    {{ form.as_p  }}
+    <button  type="submit" >Send</button>
+</form>
+
+
+{% endblock %}
+
